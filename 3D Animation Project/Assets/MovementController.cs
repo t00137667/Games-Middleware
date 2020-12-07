@@ -6,6 +6,7 @@ using Photon.Pun;
 public class MovementController : MonoBehaviourPunCallbacks
 {
     Animator animator;
+    PhotonView pV;
     bool isSprinting = false;
     float speed= 0.25f;
     float inputY;
@@ -16,11 +17,16 @@ public class MovementController : MonoBehaviourPunCallbacks
     {
         animator = GetComponentInChildren<Animator>();
         addedCamera = gameObject.GetComponentInChildren<Camera>();
+        pV = gameObject.GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!pV.IsMine)
+        {
+            Destroy(addedCamera);
+        }
         if (photonView.IsMine)
         {
             Move();

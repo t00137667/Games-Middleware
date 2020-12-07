@@ -17,7 +17,7 @@ public class OrbMovement : MonoBehaviour
     {
         if (isActive)
         {
-            transform.position += transform.forward * Time.deltaTime;
+            transform.position += transform.forward * Time.deltaTime * 5f;
         }
     }
 }

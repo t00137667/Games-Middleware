@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class CharacterObjectSpawner : MonoBehaviour
+public class CharacterObjectSpawner : MonoBehaviourPunCallbacks
 {
     Transform rightHand;
     Transform upperChest;
@@ -38,18 +39,29 @@ public class CharacterObjectSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (photonView.IsMine)
         {
-            GameObject RightHandObject = Instantiate(rightHandObject, local_to_global(upperChest, OrbSpacer), Quaternion.identity, upperChest);
-            lookObj = RightHandObject.transform;
-            rightHandObj = RightHandObject.transform.GetChild(1);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GameObject RightHandObject = PhotonNetwork.Instantiate(rightHandObject.name, local_to_global(upperChest, OrbSpacer), Quaternion.identity);
+                RightHandObject.transform.SetParent(upperChest);
+                lookObj = RightHandObject.transform;
+                rightHandObj = RightHandObject.transform.GetChild(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                ikActive = !ikActive;
+                if (!ikActive) t = 0f;
+            }
+            if (ikActive) t += 1.5f * Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ikActive = !ikActive;
-            if (!ikActive) t = 0f;
-        }
-        if (ikActive) t += 1.5f * Time.deltaTime;
+        
+    }
+
+    [PunRPC]
+    void RPC_Spawn_Orb()
+    {
+        Debug.Log("Spawn called");
     }
 
     // Code from the Unity Inverse Kinematics Tutorial with some minor changes
