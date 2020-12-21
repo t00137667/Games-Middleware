@@ -186,6 +186,10 @@ MonoBehaviour:
   projectileSpawn: {fileID: 2398965438255277639}
   projectile: {fileID: -8008711107131271930, guid: faf3f8113e0d24a4994eb72abc37e13b,
     type: 3}
+  keywords:
+  - shoot
+  - spawn
+  confidence: 1
 --- !u!1 &4063976171610318133
 GameObject:
   m_ObjectHideFlags: 0

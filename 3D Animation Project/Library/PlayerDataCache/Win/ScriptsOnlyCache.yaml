@@ -17,6 +17,8 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.PunBasics.PlayerUI
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
+    PhotonUnityNetworking.Editor.dll:
+    - Photon.Pun.PunSceneSettings
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonAnimatorView
     - Photon.Pun.PhotonRigidbodyView
@@ -1201,7 +1203,7 @@ ScriptsOnlyBuild:
     className: PlayerListView
   - hash:
       serializedVersion: 2
-      Hash: f72c4a27e978570ecc9edc067a1e1da0
+      Hash: 8db47def3eead253d6e2f1eba9cfb876
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Shoot

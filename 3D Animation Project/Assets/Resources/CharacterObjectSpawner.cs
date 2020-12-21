@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class CharacterObjectSpawner : MonoBehaviourPunCallbacks
+public class CharacterObjectSpawner : MonoBehaviourPunCallbacks, IPunObservable
 {
     Transform rightHand;
     Transform upperChest;
@@ -43,10 +43,11 @@ public class CharacterObjectSpawner : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                GameObject RightHandObject = PhotonNetwork.Instantiate(rightHandObject.name, local_to_global(upperChest, OrbSpacer), Quaternion.identity);
-                RightHandObject.transform.SetParent(upperChest);
-                lookObj = RightHandObject.transform;
-                rightHandObj = RightHandObject.transform.GetChild(1);
+                //GameObject RightHandObject = PhotonNetwork.Instantiate(rightHandObject.name, local_to_global(upperChest, OrbSpacer), Quaternion.identity);
+                //RightHandObject.transform.SetParent(upperChest);
+                //lookObj = RightHandObject.transform;
+                //rightHandObj = RightHandObject.transform.GetChild(1);
+                RPC_Spawn_Orb();
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -62,6 +63,10 @@ public class CharacterObjectSpawner : MonoBehaviourPunCallbacks
     void RPC_Spawn_Orb()
     {
         Debug.Log("Spawn called");
+        GameObject RightHandObject = PhotonNetwork.Instantiate(rightHandObject.name, local_to_global(upperChest, OrbSpacer), Quaternion.identity);
+        RightHandObject.transform.SetParent(upperChest);
+        lookObj = RightHandObject.transform;
+        rightHandObj = RightHandObject.transform.GetChild(1);
     }
 
     // Code from the Unity Inverse Kinematics Tutorial with some minor changes
@@ -103,5 +108,10 @@ public class CharacterObjectSpawner : MonoBehaviourPunCallbacks
                 animator.SetLookAtWeight(0);
             }
         }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+       
     }
 }
